@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     # 紀錄爬蟲結束時間
     end_time = time.time()
-    print('Done, Time cost: %s ' % (end_time - start_time))
+    print('Get news view done, Time cost: %s ' % (end_time - start_time))
 
     # 紀錄存檔開始時間
     start_time = time.time()
@@ -149,7 +149,7 @@ if __name__ == "__main__":
 
     # 紀錄存檔結束時間
     end_time = time.time()
-    print('Done, Time cost: %s ' % (end_time - start_time))
+    print('Save news view file done, Time cost: %s ' % (end_time - start_time))
 
     # 檢查用
     #print(len(view_list))

@@ -18,7 +18,7 @@ if __name__ == "__main__":
     ## 開始爬蟲
     while True:
         url = "https://tw.appledaily.com/new/realtime/" + str(page)
-        print("處理頁面：", url)
+        #print("處理頁面：", url)
         page_response = urlopen(url)
         page_html = BeautifulSoup(page_response)
         # 結束爬蟲
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     # 紀錄爬蟲結束時間
     end_time = time.time()
-    print('Done, Time cost: %s ' % (end_time - start_time))
+    print('Get url done, Time cost: %s ' % (end_time - start_time))
 
     # 紀錄存檔開始時間
     start_time = time.time()
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # 紀錄存檔結束時間
     end_time = time.time()
-    print('Done, Time cost: %s ' % (end_time - start_time))
+    print('Save url file done, Time cost: %s ' % (end_time - start_time))
 
     # 檢查用
     #print(len(update_url_list))
