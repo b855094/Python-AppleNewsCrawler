@@ -12,9 +12,7 @@ b). Run step:
   
   Command:
  
-    sh get_news_url.sh
-    sh get_news_content.sh
-    sh get_news_view.sh
+    sh start-all.sh
 
 c). Result:
 
