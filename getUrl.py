@@ -58,7 +58,7 @@ if __name__ == "__main__":
     if os.path.exists("update_apple_news_url.txt"):
         old_update_url_list = [] # 紀錄之前更新但還沒爬新聞內容的新聞網址
         new_update_url_list = [] # 紀錄此次更新的新聞網址
-        new_update_url_list = url_list
+        new_update_url_list = url_list.copy()
         # 開啟之前紀錄更新的新聞網址的檔案
         with open("update_apple_news_url.txt", "r", encoding="utf-8") as f:
             old_update_url_list = f.read().split("\n")
