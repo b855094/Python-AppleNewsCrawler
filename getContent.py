@@ -1,7 +1,7 @@
 # 引用相關套件
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import threading, queue, time, os, json, subprocess
+import threading, queue, time, os, json, subprocess, fcntl
 
 # <!-- For MAC電腦
 import ssl
@@ -50,7 +50,7 @@ def getNewsContent(urlQueue):
                         "論壇": "forum",
                         "壹週刊": "nextmag"}
 
-            news_html = BeautifulSoup(news_response)
+            news_html = BeautifulSoup(news_response, features="html.parser") # features="html.parser" for Ubuntu 18.04
             news = news_html.find("article", class_="ndArticle_leftColumn")
             news_title = news.find("h1").text
             news_view = news.find("div", class_="ndArticle_view")
@@ -87,10 +87,19 @@ if __name__ == "__main__":
     while True:
         if os.path.exists("update_apple_news_url.txt"):
             with open("update_apple_news_url.txt", "r", encoding="utf-8") as f:
-                url_list = f.read().split("\n")
+                while True:
+                    try:
+                        fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                        url_list = f.read().split("\n")
+                        fcntl.flock(f, fcntl.LOCK_UN)
+                        break
+                    except OSError:
+                        print("update_apple_news_url.txt locked!")
+                    finally:
+                        fcntl.flock(f, fcntl.LOCK_UN)
             break
         else:
-            time.sleep(120)
+            time.sleep(30)
 
     # 使用系統指令更改檔案名字
     subprocess.run(["mv", "update_apple_news_url.txt", "update_apple_news_url.txt.bak"])

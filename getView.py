@@ -1,7 +1,7 @@
 # 引用相關套件
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import threading, queue, time, datetime, os, json
+import threading, queue, time, datetime, os, json, fcntl
 
 # <!-- For MAC電腦
 import ssl
@@ -50,7 +50,7 @@ def getNewsView(urlQueue):
                         "論壇": "forum",
                         "壹週刊": "nextmag"}
 
-            news_html = BeautifulSoup(news_response)
+            news_html = BeautifulSoup(news_response, features="html.parser") # features="html.parser" for Ubuntu 18.04
             news = news_html.find("article", class_="ndArticle_leftColumn")
             news_view = news.find("div", class_="ndArticle_view")
             # 沒有觀看數就設定為0
@@ -74,7 +74,16 @@ if __name__ == "__main__":
     while True:
         if os.path.exists("apple_news_url.txt"):
             with open("apple_news_url.txt", "r", encoding="utf-8") as f:
-                url_list = f.read().split("\n")
+                while True:
+                    try:
+                        fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                        url_list = f.read().split("\n")
+                        fcntl.flock(f, fcntl.LOCK_UN)
+                        break
+                    except OSError:
+                        print("apple_news_url.txt locked!")
+                    finally:
+                        fcntl.flock(f, fcntl.LOCK_UN)
             break
         else:
             time.sleep(120)
