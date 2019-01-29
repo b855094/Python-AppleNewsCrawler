@@ -86,7 +86,7 @@ if __name__ == "__main__":
                         fcntl.flock(f, fcntl.LOCK_UN)
             break
         else:
-            time.sleep(120)
+            time.sleep(30)
 
     # 紀錄爬蟲開始時間
     start_time = time.time()
