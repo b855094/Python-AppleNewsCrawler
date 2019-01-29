@@ -1,7 +1,7 @@
 # 測試引用相關套件
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import threading, queue, time, datetime, os, json, subprocess
+import threading, queue, time, datetime, os, json, subprocess, fcntl
 
 # <!-- For MAC電腦
 import ssl
