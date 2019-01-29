@@ -55,7 +55,7 @@ def getNewsView(urlQueue):
             news_view = news.find("div", class_="ndArticle_view")
             # 沒有觀看數就設定為0
             if news_view == None:
-                news_view = 0
+                news_view = None
             else:
                 news_view = news_view.text
             news_tag = news.find("div", class_="ndArticle_moreNewlist").find("h2").text.replace("《", "").replace("》",

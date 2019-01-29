@@ -56,7 +56,7 @@ def getNewsContent(urlQueue):
             news_view = news.find("div", class_="ndArticle_view")
             # 沒有觀看數就設定為0
             if news_view == None:
-                news_view = 0
+                news_view = None
             else:
                 news_view = news_view.text
             news_create_time = news.find("div", class_="ndArticle_creat").text.split("：")[1].replace("/", "-")
