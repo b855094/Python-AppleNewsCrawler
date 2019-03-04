@@ -16,6 +16,7 @@ def getNewsView(urlQueue):
         try:
             # 不阻塞的讀取佇列資料
             news_url = urlQueue.get_nowait()
+            #print(news_url)
             i = urlQueue.qsize()
         except Exception as e:
             break
