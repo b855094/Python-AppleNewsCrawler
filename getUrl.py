@@ -118,7 +118,7 @@ if __name__ == "__main__":
                     fcntl.flock(f, fcntl.LOCK_UN)
                     break
                 except OSError:
-                    print("update_apple_news_url.txt locked!")
+                    print("apple_news_url.txt locked!")
                 finally:
                     # 釋放file lock
                     fcntl.flock(f, fcntl.LOCK_UN)

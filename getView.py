@@ -91,12 +91,22 @@ if __name__ == "__main__":
     # 紀錄爬蟲開始時間
     start_time = time.time()
 
+    ## 將新聞網址放進佇列中
+    # 得到今天的timestamp
+    current_date = datetime.datetime.now().strftime("%Y%m%d")
+    current_timestamp = time.mktime(datetime.datetime.strptime(current_date, "%Y%m%d").timetuple())
     for url in url_list:
         if url == "":
             break
         else:
-            urlQueue.put(url)
-            #print(url)
+            # 得到新聞的timestamp
+            news_timestamp = time.mktime(datetime.datetime.strptime(url.split("/")[-3], "%Y%m%d").timetuple())
+            # 只將7天內的新聞網址放入佇列中
+            if (current_timestamp - news_timestamp) >= (86400 * 7):
+                continue
+            else:
+                urlQueue.put(url)
+                #print(url)
 
     threads = []
     # 可以調節執行緒數，進而控制抓取速度
